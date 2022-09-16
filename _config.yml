@@ -8,6 +8,16 @@ title: "Mo's test site"
 url: ""
 environment: staging
 
+menu:
+  - path: /
+    translation_key: 17 goals
+  - translation_key: Dropdowns here
+    dropdown:
+      - path: /https://www.destatis.de/DE/Home/_inhalt.html/
+        translation_key: Dropdown field 1
+      - path: /https://www.destatis.de/DE/Home/_inhalt.html
+        translation_key: Dropdown field 2
+        
 # Pages
 collections:
   pages:
