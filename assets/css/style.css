@@ -1605,11 +1605,9 @@ body.contrast-high #main-content .nav-tabs {
 .layout-goal .goal-indicator {
   margin-top: 20px; }
 .layout-goal .goal-page-target-rule {
-  border: 0;
-  border-top: 0.1px solid #ccc;
+  border-top: 1px solid #ccc;
   margin-bottom: 25px;
-  opacity: 1;
-  height: 0.1px; }
+  opacity: 1; }
 .layout-goal .goal-page-indicator-number {
   min-width: 60px; }
   .layout-goal .goal-page-indicator-number h4 {
