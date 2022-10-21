@@ -26,8 +26,9 @@ var opensdg = {
   },
 
   // A hook which can be replaced to alter whether/how the values that are
-  // displayed on indicator tables/graphs get rounded.
-  dataRounding: function(value) {
+  // displayed on indicator tables/graphs get rounded. A "context" parameter
+  // is also passed which contains additional information.
+  dataRounding: function(value, context) {
     // Alterations go here.
     return value;
   },
@@ -128,7 +129,7 @@ var translations = {
         <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
         <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.3/css/fixedColumns.dataTables.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20220923124311">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20221021114537">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -174,10 +175,10 @@ layout-goal
 <header role="banner" class="">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light flex-wrap align-items-start">
-            <a class="navbar-brand" href="/site/de/" id="home">
+            <a class="navbar-brand" href="/site/de/" id="home" aria-label="" title="">
     <img src="/site/assets/img/SDG_logo.png" alt="Ziele für Nachhaltige Entwicklung - 17 Ziele, um unsere Welt zu verändern" />
 </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="d-flex flex-wrap w-100 justify-content-between">
@@ -201,7 +202,7 @@ layout-goal
         <label class="visually-hidden" for="indicator_search">Suche</label>
         <input class="form-control" type="search" name="q" id="indicator_search" title="Suche">
         <span class="input-group-append">
-            <button class="btn btn-outline-secondary ms-n5" aria-label="Suche" id="search-btn" type="submit">
+            <button class="btn btn-outline-secondary ms-n5" aria-label="" id="search-btn" type="submit">
                 <i class="fa fa-search"></i>
             </button>
         </span>
@@ -285,16 +286,24 @@ data-event-label="high"
 </div>
 
 
+
+
+
+
 <div id="main-content" class="container" role="main">
 
   
 
 
 
-  <div class="container g-0">
-    <h2 class="goal-page-heading">Ziele und Indikatoren</h2>
-
-    
+  <div class="container g-0 ">
+    <div class="row align-items-end">
+      <div class="col">
+        <h2 class="goal-page-heading">Ziele und Indikatoren</h2>
+      </div>
+      
+    </div>
+    <hr class="goal-page-column-header-rule">
     
       
       <div class="row align-items-start goal-target">
@@ -306,6 +315,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die Mobilisierung einheimischer Ressourcen verstärken, einschließlich durch internationale Unterstützung für die Entwicklungsländer, um die nationalen Kapazitäten zur Erhebung von Steuern und anderen Abgaben zu verbessern</span>
           </div>
+          
       </div>
         
 
@@ -400,6 +410,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Sicherstellen, dass die entwickelten Länder ihre Zusagen im Bereich der öffentlichen Entwicklungshilfe voll einhalten, einschließlich der von vielen entwickelten Ländern eingegangenen Verpflichtung, die Zielvorgabe von 0,7 Prozent ihres Bruttonationaleinkommens für öffentliche Entwicklungshilfe zugunsten der Entwicklungsländer und 0,15 bis 0,20 Prozent zugunsten der am wenigsten entwickelten Länder zu erreichen; den Gebern öffentlicher Entwicklungshilfe wird nahegelegt, die Bereitstellung von mindestens 0,20 Prozent ihres Bruttonationaleinkommens zugunsten der am wenigsten entwickelten Länder als Zielsetzung zu erwägen</span>
           </div>
+          
       </div>
         
 
@@ -454,6 +465,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Zusätzliche finanzielle Mittel aus verschiedenen Quellen für die Entwicklungsländer mobilisieren</span>
           </div>
+          
       </div>
         
 
@@ -548,6 +560,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Den Entwicklungsländern dabei behilflich sein, durch eine koordinierte Politik zur Förderung der Schuldenfinanzierung, der Entschuldung beziehungsweise der Umschuldung die langfristige Tragfähigkeit der Verschuldung zu erreichen, und das Problem der Auslandsverschuldung hochverschuldeter armer Länder angehen, um die Überschuldung zu verringern</span>
           </div>
+          
       </div>
         
 
@@ -602,6 +615,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Investitionsförderungssysteme für die am wenigsten entwickelten Länder beschließen und umsetzen</span>
           </div>
+          
       </div>
         
 
@@ -656,6 +670,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die regionale und internationale Nord-Süd- und Süd-Süd-Zusammenarbeit und Dreieckskooperation im Bereich Wissenschaft, Technologie und Innovation und den Zugang dazu verbessern und den Austausch von Wissen zu einvernehmlich festgelegten Bedingungen verstärken, unter anderem durch eine bessere Abstimmung zwischen den vorhandenen Mechanismen, insbesondere auf Ebene der Vereinten Nationen, und durch einen globalen Mechanismus zur Technologieförderung</span>
           </div>
+          
       </div>
         
 
@@ -710,6 +725,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die Entwicklung, den Transfer, die Verbreitung und die Diffusion von umweltverträglichen Technologien an die Entwicklungsländer zu gegenseitig vereinbarten günstigen Bedingungen, einschließlich Konzessions- und Vorzugsbedingungen, fördern</span>
           </div>
+          
       </div>
         
 
@@ -764,6 +780,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die Technologiebank und den Mechanismus zum Kapazitätsaufbau für Wissenschaft, Technologie und Innovation für die am wenigsten entwickelten Länder bis 2017 vollständig operationalisieren und die Nutzung von Grundlagentechnologien, insbesondere der Informations- und Kommunikationstechnologien, verbessern</span>
           </div>
+          
       </div>
         
 
@@ -818,6 +835,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die internationale Unterstützung für die Durchführung eines effektiven und gezielten Kapazitätsaufbaus in den Entwicklungsländern verstärken, um die nationalen Pläne zur Umsetzung aller Ziele für nachhaltige Entwicklung zu unterstützen, namentlich im Rahmen der Nord-Süd- und Süd-Süd-Zusammenarbeit und der Dreieckskooperation</span>
           </div>
+          
       </div>
         
 
@@ -872,6 +890,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Ein universales, regelgestütztes, offenes, nichtdiskriminierendes und gerechtes multilaterales Handelssystem unter dem Dach der Welthandelsorganisation fördern, insbesondere durch den Abschluss der Verhandlungen im Rahmen ihrer Entwicklungsagenda von Doha</span>
           </div>
+          
       </div>
         
 
@@ -926,6 +945,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die Exporte der Entwicklungsländer deutlich erhöhen, insbesondere mit Blick darauf, den Anteil der am wenigsten entwickelten Länder an den weltweiten Exporten bis 2020 zu verdoppeln</span>
           </div>
+          
       </div>
         
 
@@ -980,6 +1000,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die rasche Umsetzung des zoll- und kontingentfreien Marktzugangs auf dauerhafter Grundlage für alle am wenigsten entwickelten Länder im Einklang mit den Beschlüssen der Welthandelsorganisation erreichen, unter anderem indem sichergestellt wird, dass die für Importe aus den am wenigsten entwickelten Ländern geltenden präferenziellen Ursprungsregeln transparent und einfach sind und zur Erleichterung des Marktzugangs beitragen</span>
           </div>
+          
       </div>
         
 
@@ -1034,6 +1055,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die globale makroökonomische Stabilität verbessern, namentlich durch Politikkoordinierung und Politikkohärenz</span>
           </div>
+          
       </div>
         
 
@@ -1088,6 +1110,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die Politikkohärenz zugunsten nachhaltiger Entwicklung verbessern</span>
           </div>
+          
       </div>
         
 
@@ -1142,6 +1165,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Den politischen Spielraum und die Führungsrolle jedes Landes bei der Festlegung und Umsetzung von Politiken zur Armutsbeseitigung und für nachhaltige Entwicklung respektieren</span>
           </div>
+          
       </div>
         
 
@@ -1196,6 +1220,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die Globale Partnerschaft für nachhaltige Entwicklung ausbauen, ergänzt durch Multi-Akteur-Partnerschaften zur Mobilisierung und zum Austausch von Wissen, Fachkenntnissen, Technologie und finanziellen Ressourcen, um die Erreichung der Ziele für nachhaltige Entwicklung in allen Ländern und insbesondere in den Entwicklungsländern zu unterstützen</span>
           </div>
+          
       </div>
         
 
@@ -1250,6 +1275,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Die Bildung wirksamer öffentlicher, öffentlich-privater und zivilgesellschaftlicher Partnerschaften aufbauend auf den Erfahrungen und Mittelbeschaffungsstrategien bestehender Partnerschaften unterstützen und fördern</span>
           </div>
+          
       </div>
         
 
@@ -1304,6 +1330,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Bis 2020 die Unterstützung des Kapazitätsaufbaus für die Entwicklungsländer und namentlich die am wenigsten entwickelten Länder und die kleinen Inselentwicklungsländer erhöhen, mit dem Ziel, über erheblich mehr hochwertige, aktuelle und verlässliche Daten zu verfügen, die nach Einkommen, Geschlecht, Alter, Rasse, Ethnizität, Migrationsstatus, Behinderung, geografischer Lage und sonstigen im nationalen Kontext relevanten Merkmalen aufgeschlüsselt sind</span>
           </div>
+          
       </div>
         
 
@@ -1438,6 +1465,7 @@ data-event-label="high"
           <div class="col goal-page-target-name">
             <span class="target-name">Bis 2030 auf den bestehenden Initiativen aufbauen, um Fortschrittsmaße für nachhaltige Entwicklung zu erarbeiten, die das Bruttoinlandsprodukt ergänzen, und den Aufbau der statistischen Kapazitäten der Entwicklungsländer unterstützen</span>
           </div>
+          
       </div>
         
 
@@ -1595,12 +1623,12 @@ data-event-label="high"
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = 'Suche';</script>
 
-<script src='/site/assets/js/sdg.js?v=20220923124311'></script>
+<script src='/site/assets/js/sdg.js?v=20221021114537'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20220923124311"></script><script>
+    <script src="/site/assets/js/custom.js?v=20221021114537"></script><script>
     new indicatorInit();
     new accessibilitySwitcher();
 </script>
