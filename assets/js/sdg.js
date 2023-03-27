@@ -1887,7 +1887,7 @@ function selectFieldsFromStartValues(startValues, selectableFieldNames) {
   return Object.keys(valuesByField).map(function(field) {
     return {
       field: field,
-      values: valuesByField[field],
+      values: _.uniq(valuesByField[field]),
     };
   });
 }
@@ -5030,6 +5030,7 @@ var indicatorSearch = function() {
         if (opensdg.language != 'en' && lunr[opensdg.language]) {
           this.use(lunr[opensdg.language]);
         }
+        this.use(storeUnstemmed);
         this.ref('url');
         // Index the expected fields.
         this.field('title', getSearchFieldOptions('title'));
@@ -5133,9 +5134,13 @@ var indicatorSearch = function() {
   function getMatchedTerms(results) {
     var matchedTerms = {};
     results.forEach(function(result) {
-      Object.keys(result.matchData.metadata).forEach(function(matchedTerm) {
-        matchedTerms[matchedTerm] = true;
-      })
+      Object.keys(result.matchData.metadata).forEach(function(stemmedTerm) {
+        Object.keys(result.matchData.metadata[stemmedTerm]).forEach(function(fieldName) {
+          result.matchData.metadata[stemmedTerm][fieldName].unstemmed.forEach(function(unstemmedTerm) {
+            matchedTerms[unstemmedTerm] = true;
+          });
+        });
+      });
     });
     return Object.keys(matchedTerms);
   }
@@ -5156,6 +5161,19 @@ var indicatorSearch = function() {
   function escapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/gi, "\\$&");
   };
+
+  // Define a pipeline function that keeps the unstemmed word.
+  // See: https://github.com/olivernn/lunr.js/issues/287#issuecomment-454923675
+  function storeUnstemmed(builder) {
+    function pipelineFunction(token) {
+      token.metadata['unstemmed'] = token.toString();
+      return token;
+    };
+    lunr.Pipeline.registerFunction(pipelineFunction, 'storeUnstemmed');
+    var firstPipelineFunction = builder.pipeline._stack[0];
+    builder.pipeline.before(firstPipelineFunction, pipelineFunction);
+    builder.metadataWhitelist.push('unstemmed');
+  }
 };
 
 $(function() {
@@ -5557,6 +5575,7 @@ $(function() {
       var container = L.Control.Search.prototype.onAdd.call(this, map);
 
       this._input.setAttribute('aria-label', this._input.placeholder);
+      this._input.removeAttribute('role');
       this._tooltip.setAttribute('aria-label', this._input.placeholder);
 
       this._button.setAttribute('role', 'button');
@@ -5643,6 +5662,18 @@ $(function() {
       // Prevent the enter key from immediately collapsing the search bar.
       if ((typeof e === 'undefined' || e.type === 'keyup') && this._input.value === '') {
         return;
+      }
+      if (this._tooltip.childNodes.length > 0 && this._input.value !== '') {
+        // This is a workaround for the bug where non-exact matches
+        // do not successfully search. See this Github issue:
+        // https://github.com/stefanocudini/leaflet-search/issues/264
+        var firstSuggestion = this._tooltip.childNodes[0].innerText;
+        var firstSuggestionLower = firstSuggestion.toLowerCase();
+        var userInput = this._input.value;
+        var userInputLower = userInput.toLowerCase();
+        if (firstSuggestion !== userInput && firstSuggestionLower.includes(userInputLower)) {
+          this._input.value = firstSuggestion;
+        }
       }
       L.Control.Search.prototype._handleSubmit.call(this, e);
     },
